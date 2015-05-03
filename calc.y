@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
 lines
   : /* empty */
   | lines '\n' {printf(">> ");}
-  | lines expression '\n' {printf(">> ")}
+  | lines expression '\n' {printf(">> ");}
   | error '\n'       { yyerrok; printf(">> "); }
 expression
   : formula { printf("%d\n", $1); }
