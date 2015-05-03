@@ -1,7 +1,7 @@
 # このレポジトリについて
 このレポジトリは、言語処理系グループ１１の電卓の開発用レポジトリです。
 
-## 使い方
+## インストール＆実行
 ダウンロードした場所で、		
 ```
 $ make
@@ -12,6 +12,7 @@ $ make
 $ ./calc
 ```
 とコマンドを打ってください。
+## 使用例
 ```
 >> x=1
 x = 1
@@ -23,3 +24,9 @@ x = 1
 >> exit
 ```
 とコマンドを打つか、CTRL+cとすればできます。
+## 解説
+[wiki](https://github.com/waseda-LP-15-11/calc/wiki)
+
+[構文規則](https://github.com/waseda-LP-15-11/calc/wiki/構文規則)
+
+[機能一覧](https://github.com/waseda-LP-15-11/calc/wiki/機能一覧)
