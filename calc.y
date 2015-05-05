@@ -1,7 +1,9 @@
 %{
 #include <stdio.h>
 #include <math.h>
+#include <limits.h>
 #include "variable.h"
+#include "arithmetic.h"
 
 void yyerror(char *s)
 {
@@ -10,8 +12,8 @@ void yyerror(char *s)
 
 void showFormula(double value)
 {
- if(ceil(value)!=floor(value))
-  printf("%f\n", value);
+ if(ceil(value)!=floor(value) || value > INT_MAX)
+   printf("%f\n", value);
  else 
   printf("%d\n", (int)value);
 }
@@ -54,15 +56,15 @@ expression
 formula
   : term
   | '-'term  { $$ = -1*$2; }
-  | formula '+' term  { $$ = $1 + $3; }
-  | formula '-' term  { $$ = $1 - $3; }
+  | formula '+' term  { $$ = add($1, $3); }
+  | formula '-' term  { $$ = sub($1, $3); }
 term
   : primary
   | FUNCTION '(' formula ')'{ $$ = $1($3); }
-  | term '*' primary { $$ = $1 * $3; }
-  | term '/' primary { if($3 != 0){ $$ = $1 / $3; }else{ printf("can't divide by 0\n"); } }
+  | term '*' primary { $$ = multiple($1, $3); }
+  | term '/' primary { $$ = divide($1, $3); }
   | term '%' primary { $$ = fmod($1,$3); }
-  | term '^' primary { $$ = pow($1,$3); }
+  | term '^' primary { $$ = pow_with_check_overflow($1,$3); }
 primary
   : CONSTANT 
   | character { if(get_value($1) != NULL){ $$ = *get_value($1);}else{ $$ = 0;} }
