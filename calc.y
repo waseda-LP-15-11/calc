@@ -60,7 +60,7 @@ term
   : primary
   | FUNCTION '(' formula ')'{ $$ = $1($3); }
   | term '*' primary { $$ = $1 * $3; }
-  | term '/' primary { $$ = $1 / $3; }
+  | term '/' primary { if($3 != 0){ $$ = $1 / $3; }else{ printf("can't divide by 0\n"); } }
   | term '%' primary { $$ = fmod($1,$3); }
   | term '^' primary { $$ = pow($1,$3); }
 primary
