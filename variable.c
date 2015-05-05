@@ -2,7 +2,7 @@
 #include "variable.h"
 
 typedef struct _var_t {
-	int value;
+	double value;
 	char name[255];
 	struct _var_t* less;
 	struct _var_t* greater;
@@ -10,7 +10,7 @@ typedef struct _var_t {
 } var_t;
 
 static var_t var_tree = {
-	NULL,
+	0.0,
 	{'\0'},
 	NULL,
 	NULL
@@ -18,20 +18,20 @@ static var_t var_tree = {
 
 // 変数の値を表示する
 void show_variable(const char* name) {
-	int* value = get_value(name);
+	double* value = get_value(name);
 	if(value != NULL) {
-		printf("%s = %d\n", name, *value);
+		printf("%s = %f\n", name, *value);
 	}
 }
 
 // 変数を更新もしくは作成
-int update_variable(const char* name, int value) {
+int update_variable(const char* name, double value) {
 	var_t* var = &var_tree;
 	var_t** pvar;
 	if(var_tree.name[0] == '\0') {
 		strcpy(var_tree.name, name);
 		var_tree.value = value;
-		printf("%s = %d\n", name, value);
+		printf("%s = %f\n", name, value);
 		return 0;
 	}
 
@@ -39,7 +39,7 @@ int update_variable(const char* name, int value) {
 		int compare = strcmp(name, (*pvar)->name);
 		if(compare == 0) {
 			(*pvar)->value = value;
-			printf("%s = %d\n", name, value);
+			printf("%s = %f\n", name, value);
 			return 0;
 		}
 		pvar = (compare < 0) ? &(*pvar)->less : &(*pvar)->greater;
@@ -52,12 +52,12 @@ int update_variable(const char* name, int value) {
 	var->less = NULL;
 	var->greater = NULL;
 	strcpy(var->name, name);
-	printf("%s = %d\n", name, value);
+	printf("%s = %f\n", name, value);
 	return 0;
 }
 
 // 名前がnameの変数を取得する。
-int* get_value(const char* name) {
+double* get_value(const char* name) {
 	var_t* var = &var_tree;
 	var_t** pvar;
 

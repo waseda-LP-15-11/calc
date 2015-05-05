@@ -8,7 +8,7 @@
 struct _var_t;
 typedef struct _var_t var_t;
 void show_variable(const char* name);
-int update_variable(const char* name, int value);
-int* get_value(const char* name);
+int update_variable(const char* name, double value);
+double* get_value(const char* name);
 
 #endif
