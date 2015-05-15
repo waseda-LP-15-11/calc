@@ -1,7 +1,7 @@
 TARGET = calc
 BISON_SRC = $(TARGET).y
-INCLUDE_BISON_C = variable.c arithmetic.c
-INCLUDE_BISON_O = variable.o arithmetic.o
+INCLUDE_BISON_C = variable.c arithmetic.c exmath.c
+INCLUDE_BISON_O = variable.o arithmetic.o exmath.o
 BISON_H   = $(TARGET).tab.h
 BISON_C   = $(TARGET).tab.c
 BISON_O   = $(TARGET).tab.o
@@ -37,4 +37,4 @@ clean :
 	rm -f $(TARGET)
 
 lex.yy.o: lex.yy.c calc.tab.h
-calc.tab.o: calc.tab.c calc.tab.h variable.h arithmetic.h
+calc.tab.o: calc.tab.c calc.tab.h variable.h arithmetic.h exmath.h
